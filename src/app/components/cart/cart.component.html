@@ -1,0 +1,74 @@
+<div class="cart-item">
+    <div class="cart-item-details">
+      <ul *ngFor="let cartItems of cart">
+        <img src="{{ cartItems.product.url }}" class="img" />
+  
+        <li>{{ cartItems.product.name }}</li>
+        <li>{{ cartItems.product.price }} $</li>
+        <input
+          [(ngModel)]="cartItems.quantity"
+          (ngModelChange)="updateQuantity(cartItems)"
+          type="number"
+          class="number-input"
+          required
+          min="0"
+        />
+        <button (click)="delete(cartItems.product.id)">remove</button>
+      </ul>
+    </div>
+  </div>
+  <div class="cart-pane">
+    <div>total: {{ total }}$</div>
+   
+    <form class="order-form" #form="ngForm" (ngSubmit)="submitOrder()">
+        <input
+        type="text"
+        name="fullName"
+        required
+        minlength="4"
+        maxlength="32"
+        [(ngModel)]="fullName"
+        placeholder="Enter your full name"
+        #name="ngModel"
+      />
+      <div *ngIf="name.errors && name.dirty">
+        The number of letters should be greater than 4
+      </div>
+      <br />
+      
+        <textarea
+          type="text"
+          name="address"
+          required
+          minlength="8"
+          maxlength="32"
+          [(ngModel)]="address"
+          placeholder="Enter your address"
+          #addressText="ngModel"
+        ></textarea>
+        <div *ngIf="addressText.errors && addressText.touched">
+          The number of letters should be greater than 8
+        </div>
+        <br />
+        <textarea
+          type="text"
+          name="card"
+          required
+          minlength="10"
+          maxlength="10"
+          [(ngModel)]="cardNumber"
+          placeholder="Enter your card"
+          #creditCard="ngModel"
+        ></textarea>
+        <div *ngIf="creditCard.errors && creditCard.dirty">
+          The number of digits should be equal 10
+        </div>
+        <br />
+        <input
+          type="submit"
+          [disabled]="form.invalid || total == 0"
+          value="Submit"
+        />
+        <p *ngIf="total == 0">Please add the product</p>
+      </form>
+    </div>
