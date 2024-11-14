@@ -35,7 +35,7 @@
         The number of letters should be greater than 4
       </div>
       <br />
-      
+
         <textarea
           type="text"
           name="address"
@@ -50,7 +50,7 @@
           The number of letters should be greater than 8
         </div>
         <br />
-        <textarea
+        <input
           type="text"
           name="card"
           required
@@ -59,9 +59,10 @@
           [(ngModel)]="cardNumber"
           placeholder="Enter your card"
           #creditCard="ngModel"
-        ></textarea>
+          pattern="^[0-9]*$"
+        />
         <div *ngIf="creditCard.errors && creditCard.dirty">
-          The number of digits should be equal 10
+            Card number not valid, The number of digits should be equal 10
         </div>
         <br />
         <input
